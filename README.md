@@ -12,29 +12,23 @@
       drive.mount('/content/drive')
 
    2) import os
-
-      # Создаем папку для проекта в среде Colab
+      
       !mkdir -p /content/checkers_ai
-
-      # Копируем архив с Диска и распаковываем
+      
       !cp /content/drive/MyDrive/CheckersAI/checkers_project.zip /content/checkers_ai/
       !unzip -o /content/checkers_ai/checkers_project.zip -d /content/checkers_ai/
 
-      # Переходим в папку с проектом
       os.chdir('/content/checkers_ai')
 
       print("Файлы распакованы, рабочая директория:", os.getcwd())
 
    3) import os
-
-      # 1. Заходим внутрь вложенной папки
+      
       os.chdir('/content/checkers_ai/checkers_project')
 
-      # 2. Проверяем, что мы на месте
       print("Текущая папка:", os.getcwd())
       print("Файлы здесь:", os.listdir())
       
-      # 3. Запускаем!
       !python main.py
    
 **Пояснения к структуре проекта:**
