@@ -1,0 +1,18 @@
+.venv/
+.venv1/
+.idea/
+__pycache__/
+*.pyc
+*.log
+*.zip
+plots/
+1000 iterations/
+
+
+# 1. блокируем тяжелые файлы в папке Exp2
+tars/Exp2/*.tar
+
+# 2. разрешаем всё содержимое папки little
+!tars/Exp2/little/
+
+# Папка Exp1 загрузится сама, так как мы её не запрещали
