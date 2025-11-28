@@ -3,7 +3,7 @@ import torch
 import os
 
 # имена файлов для сравнения
-CHECKPOINT_A_NAME = "tars/Exp2/little/Exp2-400-lite.tar"
+CHECKPOINT_A_NAME = "tars/Exp1/Exp1-100.tar"
 CHECKPOINT_B_NAME = "tars/Exp1/Exp1-500.tar"  #
 
 # Если файлы лежат в той же папке '.'
