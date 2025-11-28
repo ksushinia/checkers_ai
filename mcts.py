@@ -67,7 +67,6 @@ class MCTS:
 
         s = self.game.get_string_representation(canonicalBoard_np)
 
-        # --- НОВЫЙ "УМНЫЙ" СТРАХОВОЧНЫЙ ТРОС ---
         # Если мы уже были в этой позиции в этой ветке симуляции, это цикл.
         # Засчитываем ничью и не углубляемся дальше.
         if s in visited:
@@ -85,12 +84,12 @@ class MCTS:
         if opponent_pieces == 0:
             return -1  # Проигрыш для родителя
 
-        # --- ШАГ 1: EXPANSION (РАСШИРЕНИЕ) ---
+        # EXPANSION (РАСШИРЕНИЕ)
         if s not in self.Ps:
             board_tensor = get_nnet_input_tensor(canonicalBoard_np, 1).to(self.device)
             policy, value = self.nnet.predict(board_tensor)
 
-            # --- "УМНЫЙ ШУМ" ---
+            # УМНЫЙ ШУМ
             # Добавляем шум только в корневом узле (depth=0) и только в начале игры (например, первые 10 ходов)
             if depth == 0 and turn < 10:
                 epsilon = 0.25  # Можно вернуть 25% шума, т.к. он будет применяться редко
@@ -111,14 +110,14 @@ class MCTS:
             self.Ns[s] = 0
             return -value
 
-        # --- ШАГ 2: SELECTION (ВЫБОР) ---
+        # SELECTION (ВЫБОР) 
         # Мы уже получили valid_moves для проверки выше, используем их
         valid_moves = valid_moves_for_check
         if not valid_moves:
             return 0  # Ничья, если нет ходов, но игра не окончена
 
         best_uct = -float('inf')
-        # Выбираем первый ход как "лучший по умолчанию", чтобы избежать ситуации, когда ничего не выбрано
+        # Выбираем первый ход как лучший по умолчанию, чтобы избежать ситуации, когда ничего не выбрано
         best_act = self.game.move_to_action(valid_moves[0])
 
         for move in valid_moves:
@@ -145,7 +144,7 @@ class MCTS:
         # Передаем историю посещенных узлов дальше
         value = self.search(next_board_np, turn=turn, depth=depth + 1, visited=visited)
 
-        # --- ШАГ 3: BACKPROPAGATION (ОБРАТНОЕ РАСПРОСТРАНЕНИЕ) ---
+        # BACKPROPAGATION (ОБРАТНОЕ РАСПРОСТРАНЕНИЕ)
         if (s, a) in self.Qsa:
             self.Qsa[(s, a)] = (self.Nsa[(s, a)] * self.Qsa[(s, a)] + value) / (self.Nsa[(s, a)] + 1)
             self.Nsa[(s, a)] += 1
