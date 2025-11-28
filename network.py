@@ -39,12 +39,12 @@ class CheckersNet(nn.Module):
             *[ResidualBlock(self.num_channels) for _ in range(self.num_res_blocks)]
         )
 
-        # "Голова" Политики
+        # Голова Политики
         self.policy_conv = nn.Conv2d(self.num_channels, 32, kernel_size=1)  # Уменьшаем каналы перед полносвязным
         self.policy_bn = nn.BatchNorm2d(32)
         self.policy_fc = nn.Linear(32 * config.BOARD_X * config.BOARD_Y, config.ACTION_SIZE)
 
-        # "Голова" Ценности
+        # Голова Ценности
         self.value_conv = nn.Conv2d(self.num_channels, 3, kernel_size=1)
         self.value_bn = nn.BatchNorm2d(3)
         self.value_fc1 = nn.Linear(3 * config.BOARD_X * config.BOARD_Y, 64)
