@@ -1,8 +1,8 @@
 import torch
 import os
 
-INPUT_FILE = 'tars/Exp2/Exp2-500.tar'  # Твой тяжелый файл
-OUTPUT_FILE = 'tars/Exp2/little/Exp2-500-lite.tar'  # Имя для легкого файла
+INPUT_FILE = 'tars/Exp2/Exp2-600.tar'  # Твой тяжелый файл
+OUTPUT_FILE = 'tars/Exp2/little/Exp2-600-lite.tar'  # Имя для легкого файла
 
 
 def clean_checkpoint():
